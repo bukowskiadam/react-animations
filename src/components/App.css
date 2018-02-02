@@ -1,0 +1,13 @@
+.App {
+    text-align: center;
+}
+
+.AppHeader {
+    background-color: #222;
+    padding: 20px;
+    color: white;
+}
+
+.AppContainer {
+    text-align: center;
+}
