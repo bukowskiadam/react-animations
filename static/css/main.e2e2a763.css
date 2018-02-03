@@ -1,0 +1,2 @@
+body{margin:0;padding:0;font-family:sans-serif}.App{text-align:center}.AppHeader{background-color:#222;padding:20px;color:#fff}.AppContainer{text-align:center}.Board{line-height:0;display:inline-block;max-width:100%;width:500px;padding:0 10px 15px;-webkit-box-sizing:border-box;box-sizing:border-box}.Tile{display:inline-block;margin:0;border-right:1px solid #fff;border-bottom:1px solid #fff;-webkit-box-sizing:border-box;box-sizing:border-box}.Tile.on{background-color:#ccc}.Tile.off{background-color:#222}
+/*# sourceMappingURL=main.e2e2a763.css.map*/
