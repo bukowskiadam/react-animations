@@ -8,7 +8,7 @@ const size = 32;
 const App = () => (
     <div className="App">
         <header className="AppHeader">
-            <h1>React animations!</h1>
+            <h1>React Animations!</h1>
         </header>
         <div className="AppContainer">
             <h3>Click on board!</h3>

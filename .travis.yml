@@ -1,0 +1,28 @@
+env:
+  global:
+    secure: zIc3XhQbLBLRJH33FU8PUsobbSrBmITKOmzVujIn4gr3+O1nNT4sM/UUaWGu2w6vTQfzWWBVuH1keJWK5XOAit3QC1I2p4Qi992QxFw/Ap4LVVLiZyrRS3SXz1q4zPZp6ni4e7TIvnevs25PM5zax3VTZAl+2e/razTms1icJ92OlvCykr+nHQL04nmvb64e3NUMS5EZN0bUfIphQrJLjSR6E7KWnWhCaQOefnHDNtqrsvWQswHzaR4lIodmdG0Q563Kpjhq7eymR3zjx5hA508va+tF37qeBFwZYutDh2qBhtiXZtjC5ztSyUnbZ56HxtPlRGmbqfI1iNcWWO/7ltEQE7dAcXhJ3o4UEpdQekjhcbagyJoxZRCix8VepuKtJB5EuhJbuaPUG54khKprhbQHLOaeJffZ+U4Uhy4dW5fiOXJ5nosggD0IG+IgcV46KBcPGbdIxV3hcbMxN29bo6xzvLMpF7gddFVY+3P8FXhAh3S2Be/03VXc/RL8MQgp4DeyGNeF6ubJQ6hgjK7ynhY9GAqSoGPhsysfGej0aEbZQEYnzrbbhe2lnaFUOhxEAOTLWVyLe8O/wRxS7ir6/vqjt6kcjSf8Zqsq5jA2bTFyTVhbC8z4Xis22/kMxrd9UrIBgUfmj1LwmznfS3qCdvpy+tKQnH/Dc9ag+FkL01s= # GITHUB_TOKEN
+
+language: node_js
+
+cache:
+  yarn: true
+
+node_js:
+  - '8'
+
+install:
+  - yarn install --frozen-lockfile
+
+script:
+  - yarn lint
+  - yarn test
+  - yarn build
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  on:
+    branch: master
+  local-dir: build
