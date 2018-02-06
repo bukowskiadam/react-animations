@@ -17,10 +17,19 @@ export default class Tile extends React.PureComponent {
 
         this.handledMessages = new WeakSet();
 
+        this.isComponentMounted = false;
         this.state = {
             power: false,
         };
         this.props.onMessage(this.onMessage);
+    }
+
+    componentDidMount() {
+        this.isComponentMounted = true;
+    }
+
+    componentWillUnmount() {
+        this.isComponentMounted = false;
     }
 
     onClick = () => {
@@ -28,20 +37,22 @@ export default class Tile extends React.PureComponent {
     };
 
     onMessage = (message) => {
-        // eslint-disable-next-line consistent-return
-        this.setState((prevState) => {
-            if (!this.handledMessages.has(message)) {
-                this.handledMessages.add(message);
-                message.received();
+        if (this.isComponentMounted) {
+            // eslint-disable-next-line consistent-return
+            this.setState((prevState) => {
+                if (!this.handledMessages.has(message)) {
+                    this.handledMessages.add(message);
+                    message.received();
 
-                // this.props.broadcastMessage(message);
-                setTimeout(() => this.props.broadcastMessage(message), 0);
+                    // this.props.broadcastMessage(message);
+                    setTimeout(() => this.props.broadcastMessage(message), 0);
 
-                return {
-                    power: !prevState.power,
-                };
-            }
-        });
+                    return {
+                        power: !prevState.power,
+                    };
+                }
+            });
+        }
     };
 
     render() {

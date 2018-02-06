@@ -1,0 +1,12 @@
+.sizePicker {
+    line-height: 2em;
+    margin: 1em 0;
+}
+
+.sizePicker input {
+    vertical-align: middle;
+}
+
+.sizePicker .valueText {
+    margin-left: 5px;
+}

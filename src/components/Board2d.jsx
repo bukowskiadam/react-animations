@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import './Board2d.css';
 import Tile from './Tile';
 import MessagingBoard from '../messaging/SquareBoard';
-import Message from '../messaging/Message';
 import performance from '../performance';
 
 export default class Board2d extends React.PureComponent {
@@ -15,10 +14,7 @@ export default class Board2d extends React.PureComponent {
     constructor(props) {
         super(props);
 
-        const { size } = props;
-
-        this.messagingBoard = new MessagingBoard(size);
-        this.totalTiles = size * size;
+        this.messagingBoard = null;
 
         this.state = {
             animationDuration: -1,
@@ -33,31 +29,39 @@ export default class Board2d extends React.PureComponent {
         performance.clearEntries();
     };
 
-    onMessageStart = () => {
+    onMessageCreated = () => {
         performance.start();
     };
 
-    createMessage = () => {
-        this.onMessageStart();
+    getMessagingBoard = () => {
+        const { size } = this.props;
 
-        return new Message(this.totalTiles, this.onMessageCompleted);
+        if (!this.messagingBoard || this.messagingBoard.size !== size) {
+            this.messagingBoard = new MessagingBoard(
+                size,
+                this.onMessageCreated,
+                this.onMessageCompleted,
+            );
+        }
+
+        return this.messagingBoard;
     };
 
     renderTiles = () => {
         const { size } = this.props;
         const tileSize = `${(100.0 / size).toFixed(4)}%`;
 
-        const createTile = (identifier, onMessage, broadcastMessage) => (
+        const createTile = (identifier, onMessage, createMessage, broadcastMessage) => (
             <Tile
                 key={ identifier }
                 size={ tileSize }
                 onMessage={ onMessage }
                 broadcastMessage={ broadcastMessage }
-                createMessage={ this.createMessage }
+                createMessage={ createMessage }
             />
         );
 
-        return this.messagingBoard.generate(createTile);
+        return this.getMessagingBoard().generate(createTile);
     };
 
     renderPerformance = () => {
