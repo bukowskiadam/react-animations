@@ -4,10 +4,12 @@
     border-right: 1px solid white;
     border-bottom: 1px solid white;
     box-sizing: border-box;
+    transition: background-color 0.5s, transform 0.5s linear;
 }
 
 .Tile.on {
     background-color: #cccccc;
+    transform: rotateX(180deg) rotateY(180deg);
 }
 
 .Tile.off {
