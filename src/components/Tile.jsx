@@ -19,6 +19,7 @@ export default class Tile extends React.PureComponent {
 
         this.isComponentMounted = false;
         this.state = {
+            data: 0,
             power: false,
         };
         this.props.onMessage(this.onMessage);
@@ -33,21 +34,23 @@ export default class Tile extends React.PureComponent {
     }
 
     onClick = () => {
-        this.onMessage(this.props.createMessage());
+        this.onMessage(this.props.createMessage(0));
     };
 
     onMessage = (message) => {
         if (this.isComponentMounted) {
             // eslint-disable-next-line consistent-return
             this.setState((prevState) => {
-                if (!this.handledMessages.has(message)) {
-                    this.handledMessages.add(message);
-                    message.received();
+                if (!this.handledMessages.has(message.messageId)) {
+                    this.handledMessages.add(message.messageId);
+                    message.messageId.received();
 
+                    const clonedMessage = message.cloneWithNewPayload(message.payload + 1);
                     // this.props.broadcastMessage(message);
-                    setTimeout(() => this.props.broadcastMessage(message), 0);
+                    setTimeout(() => this.props.broadcastMessage(clonedMessage), 0);
 
                     return {
+                        data: message.payload,
                         power: !prevState.power,
                     };
                 }
@@ -56,17 +59,22 @@ export default class Tile extends React.PureComponent {
     };
 
     render() {
+        const { data, power } = this.state;
         const { size } = this.props;
 
         return (
             <div
-                className={ `Tile ${this.state.power ? 'on' : 'off'}` }
+                className={ `Tile ${power ? 'on' : 'off'}` }
                 style={ {
                     width: size,
                     paddingBottom: size,
                 } }
                 onClick={ this.onClick }
-            />
+            >
+                <div>
+                    { data }
+                </div>
+            </div>
         );
     }
 }

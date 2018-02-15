@@ -1,17 +1,28 @@
 .Tile {
+    position: relative;
     display: inline-block;
     margin: 0;
     border-right: 1px solid white;
     border-bottom: 1px solid white;
     box-sizing: border-box;
-    transition: background-color 0.5s, transform 0.5s linear;
+    vertical-align: top;
+    font-size: 10px;
+    line-height: 10px;
+}
+
+.Tile div {
+    position: absolute;
+    margin-top: -5px;
+    top: 50%;
+    width: 100%;
 }
 
 .Tile.on {
     background-color: #cccccc;
-    transform: rotateX(180deg) rotateY(180deg);
+    color: #222222;
 }
 
 .Tile.off {
     background-color: #222222;
+    color: #cccccc;
 }

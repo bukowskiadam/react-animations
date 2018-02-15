@@ -1,5 +1,6 @@
 import Connection from './Connection';
-import Message from './Message';
+import MessageId from './MessageId';
+import MessageWithPayload from './MessageWithPayload';
 
 export default class SquareBoard {
     constructor(size, onMessageCreated, onMessageCompleted) {
@@ -34,12 +35,13 @@ export default class SquareBoard {
         if (y - 1 >= 0) this.elements[y - 1][x].connection.sendMessage(message);
     };
 
-    createMessage = () => {
-        const message = new Message(this.size * this.size, this.onMessageCompleted);
+    createMessage = (payload) => {
+        const messageId = new MessageId(this.size * this.size, this.onMessageCompleted);
+        const messageWithPayload = new MessageWithPayload(messageId, payload);
 
-        this.onMessageCreated(message);
+        this.onMessageCreated(messageWithPayload);
 
-        return message;
+        return messageWithPayload;
     };
 
     generate = (componentCreator) => {

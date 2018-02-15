@@ -1,4 +1,4 @@
-export default class Message {
+export default class MessageId {
     constructor(receiversTotal, onComplete) {
         this.receiversTotal = receiversTotal;
         this.receiversCount = 0;
@@ -11,11 +11,5 @@ export default class Message {
         if (++this.receiversCount === this.receiversTotal) {
             this.onComplete(this);
         }
-    };
-
-    isValid = () => this.valid;
-
-    invalidate = () => {
-        this.valid = false;
     };
 }
